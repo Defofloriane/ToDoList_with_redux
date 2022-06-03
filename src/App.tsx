@@ -1,16 +1,25 @@
 import React, { useCallback, useRef,useState } from "react";
 import { Provider, useSelector, useDispatch } from "react-redux";
-
+import './Sign_up.css';
 import store, { selectTodos, addTodo, removeTodo } from "./store";
 import { useTodos } from "./userTodo";
 import "./App.css";
 import Connexion from "./Connexion";
 import './bootstrap.min.css';
+import { setSyntheticLeadingComments } from "typescript";
 
 
 
 const Heading = ({ title }: { title: string }) => <h2>{title}</h2>;
 
+// function tache (props:Object){
+    
+//       //  const [tache,setTache] =useState<string>('');
+
+//        return (
+//               <p>Nombre de taches: {nombretache}</p>
+//        );
+// }
 const Box: React.FunctionComponent = ( children ) => (
   <div
     style={{
@@ -32,12 +41,7 @@ const Button: React.FunctionComponent<
 > = ({ title, children, style, ...rest }) => (
   <button
     {...rest}
-    style={{
-      ...style,
-      backgroundColor: "green",
-      color: "white",
-      fontSize: "xx-large",
-    }}
+    
   >
     {title ?? children}
   </button>
@@ -66,9 +70,14 @@ function UL<T>({
   );
 }
 
-function App() {
+function App( ) {
+  
   const [user, setUser]=useState(null);
   const todos = useSelector(selectTodos);
+  
+  const [nombretache,setNombretache]= useState(0);
+  // const todo = useSelector(TotalcompleceItems);
+
   const dispatch = useDispatch();
   // const storage = localStorage.getItem(newTodoRef);
   // const taches:any[] = JSON.parse(storage);
@@ -76,18 +85,25 @@ function App() {
    
   
   const newTodoRef = useRef<HTMLInputElement>(null);
+  // const sencondRef = useRef<HTMLInputElement>(null);
 
-  const onAddTodo = useCallback(() => {
+  const onAddTodo = () => {
     if (newTodoRef.current) {
       dispatch(
         addTodo(newTodoRef.current.value),
-       
-        
       );
       newTodoRef.current.value = "";
+      // 
      
     }
-  }, [dispatch]);
+    up()
+    
+    
+   
+  };
+  const up = ()=>{
+    setNombretache(nombretache +1)
+  }
 
   
   return (
@@ -96,6 +112,7 @@ function App() {
    
     <div>
       <Heading title="Todo List" />
+     
       <div className="connexion">
 
         <Connexion setUser={setUser} />
@@ -109,23 +126,29 @@ function App() {
         itemClick={(item) => alert(item.id)}
         render={(todo) => (
           <>
-          <div className="remove">
+          <div className="">
               {todo.text}
               
               <button onClick={() => dispatch(removeTodo(todo.id))}>
                 Remove
               </button>
+              {/* <button onClick={() => dispatch(changeTodo(todo.id))}>
+                modifier
+              </button> */}
             </div>
           </>
         )}
       />
       <div className="btn">
-        <label htmlFor="">Nom de la tache</label>
+        <label htmlFor="">Nom de la tache</label><p>Nombre total de taches:{nombretache}</p>
         <input type="text" ref={newTodoRef} /><br/>
         {/* <label htmlFor="">Description</label>
         <input type="text" ref={newTodoRef} /><br/> */}
  
-        <Button   className=" btn-block buttonConnect" onClick={onAddTodo}>Add </Button>
+        <Button   className="btn btn-primary btn-lg btn-block buttonConnect" onClick={onAddTodo}>ADD</Button>
+     
+        
+        
       </div>
     </div> : ''
       }
@@ -142,7 +165,7 @@ function App() {
   // <br />
   // {
   // liste === true ?  <div className="tache">
-    
+  
 
   // <Viewliste TabListe={[]} />
 
@@ -171,9 +194,12 @@ const AppWrapper = () => (
         display: "grid",
         gridTemplateColumns: "50% 50%",
       }}
-    >
+
+    >   
       <App />
+      
       <JustTheTodos />
+   
     </div>
   </Provider>
 );

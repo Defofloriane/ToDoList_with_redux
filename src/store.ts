@@ -1,4 +1,6 @@
+import React from "react";
 import { applyMiddleware, createStore,configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 // import { useSelector } from "react-redux";
 // import {persistStore,persistReducer, PersistConfig} from "redux-persist";
 // import storage  from "redux-persist/lib/storage";
@@ -29,6 +31,7 @@ const initialState: TodosSliceState = {
 };
 
 export const todosSlice = createSlice({
+  
   name: "todos",
   initialState,
   reducers: {
@@ -42,9 +45,10 @@ export const todosSlice = createSlice({
         },
       ];
     },
-    removeTodo: (state, action: PayloadAction<number>) => {
+    removeTodo: (state: { todos: any[]; }, action: PayloadAction<number>) => {
       state.todos = state.todos.filter(({ id }) => id !== action.payload);
     },
+  
   },
 });
 
@@ -57,7 +61,15 @@ const store = configureStore({
   
 });
 
+
+
 type RootState = ReturnType<typeof store.getState>;
+
+// export const TotalcompleceItems  = () =>{
+//   // const total = useSelector((state) => state.todos.filter((todo: { completed: boolean; })=> todo.completed === true),
+//   const total = useSelector((state) => state.todos.filter((todo: { completed: boolean; })=> todo.completed === true)
+//   );
+// };
 
 export const selectTodos = (state: RootState) => state.todos.todos;
 // export {Persistor} ;
