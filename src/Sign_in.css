@@ -1,0 +1,20 @@
+.sign-card{
+    text-align: center;
+    margin: 16px 0;
+    padding: 10px;
+    box-shadow: 2px 2px 2px #6c757d8a;
+}
+
+.input-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 5px
+}
+
+.input-item input{
+    width: 275px;
+    height: 40px;
+    border: 2px solid #2f4f4f66;
+    padding: 5px;
+}
