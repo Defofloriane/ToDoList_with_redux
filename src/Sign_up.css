@@ -18,7 +18,14 @@
     border: 2px solid #2f4f4f66;
     padding: 5px;
 }
-.listetache{
-   
+UL{
+  text-decoration: none;
+  color: blueviolet;
+}
+.btnremov{
+    justify-content: space-between;
+}
+.bloc{
+    background-color: blue;
 }
 

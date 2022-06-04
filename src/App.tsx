@@ -1,4 +1,4 @@
-import React, { useCallback, useRef,useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import './Sign_up.css';
 import store, { selectTodos, addTodo, removeTodo } from "./store";
@@ -7,20 +7,21 @@ import "./App.css";
 import Connexion from "./Connexion";
 import './bootstrap.min.css';
 import { setSyntheticLeadingComments } from "typescript";
+import todoimg from './images/todoimg.png';
 
 
 
 const Heading = ({ title }: { title: string }) => <h2>{title}</h2>;
 
 // function tache (props:Object){
-    
+
 //       //  const [tache,setTache] =useState<string>('');
 
 //        return (
 //               <p>Nombre de taches: {nombretache}</p>
 //        );
 // }
-const Box: React.FunctionComponent = ( children ) => (
+const Box: React.FunctionComponent = (children) => (
   <div
     style={{
       padding: "1rem",
@@ -41,7 +42,7 @@ const Button: React.FunctionComponent<
 > = ({ title, children, style, ...rest }) => (
   <button
     {...rest}
-    
+
   >
     {title ?? children}
   </button>
@@ -70,20 +71,20 @@ function UL<T>({
   );
 }
 
-function App( ) {
-  
-  const [user, setUser]=useState(null);
+function App() {
+
+  const [user, setUser] = useState(null);
   const todos = useSelector(selectTodos);
-  
-  const [nombretache,setNombretache]= useState(0);
+
+  const [nombretache, setNombretache] = useState(0);
   // const todo = useSelector(TotalcompleceItems);
 
   const dispatch = useDispatch();
   // const storage = localStorage.getItem(newTodoRef);
   // const taches:any[] = JSON.parse(storage);
 
-   
-  
+
+
   const newTodoRef = useRef<HTMLInputElement>(null);
   // const sencondRef = useRef<HTMLInputElement>(null);
 
@@ -94,94 +95,99 @@ function App( ) {
       );
       newTodoRef.current.value = "";
       // 
-     
+
     }
     up()
-    
-    
-   
+
+
+
   };
-  const up = ()=>{
-    setNombretache(nombretache +1)
+  const up = () => {
+    setNombretache(nombretache + 1)
   }
 
-  
+
   return (
-    
-    
-   
+
+
+
     <div>
       <Heading title="Todo List" />
-     
+
       <div className="connexion">
 
         <Connexion setUser={setUser} />
 
-       </div>
+      </div>
       <br />
       {
-                user ?  <div className="tache">
-                <UL
-        items={todos}
-        itemClick={(item) => alert(item.id)}
-        render={(todo) => (
-          <>
-          <div className="">
-              {todo.text}
-              
-              <button onClick={() => dispatch(removeTodo(todo.id))}>
-                Remove
-              </button>
-              {/* <button onClick={() => dispatch(changeTodo(todo.id))}>
+        user ? <div className="tache">
+
+          <p>Nombre total de taches:{nombretache}</p>
+          <div className="btn">
+            <label htmlFor="">Nom de la tache:</label>
+
+            <input type="text" ref={newTodoRef} /><br />
+            {/* <label htmlFor="">Description</label>
+        <input type="text" ref={newTodoRef} /><br/> */}
+
+            <Button className="btn btn-success btn-lg btn-block buttonConnect" onClick={onAddTodo}>ADD</Button>
+
+
+
+          </div>
+          <div className='sign-card'>
+            <UL
+              items={todos}
+              itemClick={(item) => alert(item.id)}
+              render={(todo) => (
+                <>
+                  <div className="btnremov">
+                    {todo.text}
+                   
+                    <button onClick={() => dispatch(removeTodo(todo.id))}>
+                      Remove
+                    </button>
+                    {/* <button onClick={() => dispatch(changeTodo(todo.id))}>
                 modifier
               </button> */}
-            </div>
-          </>
-        )}
-      />
-      <div className="btn">
-        <label htmlFor="">Nom de la tache</label><p>Nombre total de taches:{nombretache}</p>
-        <input type="text" ref={newTodoRef} /><br/>
-        {/* <label htmlFor="">Description</label>
-        <input type="text" ref={newTodoRef} /><br/> */}
- 
-        <Button   className="btn btn-primary btn-lg btn-block buttonConnect" onClick={onAddTodo}>ADD</Button>
-     
-        
-        
-      </div>
-    </div> : ''
+                  </div>
+                </>
+              )}
+            />
+          </div>
+        </div> : ''
       }
 
-</div>
+    </div>
 
-      
-  //  
-  // user ?  <div className="tache">
-  
-  // <TacheToDo  setListe={setListe} ListeTaches={ListeTaches} setTache={setTabListe}/>
-  // </div> : ''
-  // }
-  // <br />
-  // {
-  // liste === true ?  <div className="tache">
-  
 
-  // <Viewliste TabListe={[]} />
+    //  
+    // user ?  <div className="tache">
 
-// </div> : ''
+    // <TacheToDo  setListe={setListe} ListeTaches={ListeTaches} setTache={setTabListe}/>
+    // </div> : ''
+    // }
+    // <br />
+    // {
+    // liste === true ?  <div className="tache">
+
+
+    // <Viewliste TabListe={[]} />
+
+    // </div> : ''
   );
 }
 
 
 
- 
+
 const JustTheTodos = () => {
   const todos = useSelector(selectTodos);
   return (
     <UL
       items={todos}
-      itemClick={() => {}}
+      itemClick={() => { }}
       render={(todo) => <>{todo.text}</>}
     />
   );
@@ -190,18 +196,22 @@ const JustTheTodos = () => {
 const AppWrapper = () => (
   <Provider store={store}>
     <div
+
       style={{
         display: "grid",
-        gridTemplateColumns: "50% 50%",
+        gridTemplateColumns: "45% 50%",
       }}
-
-    >   
+    >
       <App />
-      
-      <JustTheTodos />
-   
+      <div className="">
+          
+      <JustTheTodos /> <img src={todoimg}  alt="img" />
+      </div>
+     
+
     </div>
   </Provider>
+
 );
 
 export default AppWrapper;

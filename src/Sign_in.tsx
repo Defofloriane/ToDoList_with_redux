@@ -69,7 +69,7 @@ const Sign_in: React.FC<PropsType>= ({setUser})=>
                           setUser(res);
                     }
                 }}
-                className="btn btn-primary btn-lg btn-block buttonConnect"
+                className="btn btn-success btn-lg btn-block buttonConnect"
             >
                     CONNEXION
             </button>
